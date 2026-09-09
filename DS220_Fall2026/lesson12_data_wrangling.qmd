@@ -24,6 +24,9 @@ cadets <- read_csv(url)
 
 # Take a first look at the variables and types
 tibble(cadets)
+
+# Same idea, laid out one variable per line instead
+glimpse(cadets)
 ```
 
 ## The pipe operator `%>%`
