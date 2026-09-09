@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Materials</title>
+<style>
+  :root {
+    --usafa-blue: #174889;
+    --usafa-blue-dark: #0f3363;
+    --usafa-gray: #8a8d8f;
+    --bg: #f5f6f8;
+    --card-bg: #ffffff;
+    --border: #e1e4e8;
+    --text: #1f2328;
+    --text-muted: #57606a;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  header {
+    background: var(--usafa-blue);
+    background: linear-gradient(135deg, var(--usafa-blue) 0%, var(--usafa-blue-dark) 100%);
+    color: #ffffff;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .logomark {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    background: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .logomark svg { width: 100%; height: 100%; }
+  .logomark svg path { fill: var(--usafa-blue); }
+
+  .header-text .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #cfe0f5;
+    margin: 0 0 0.15rem;
+  }
+
+  .header-text h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  .header-text p.tagline {
+    margin: 0.35rem 0 0;
+    font-size: 0.92rem;
+    color: #dbe7f6;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .course {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 1.75rem;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(15, 51, 99, 0.04);
+  }
+
+  .course-header {
+    padding: 1.1rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+    background: #f8fafc;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .course-header h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--usafa-blue-dark);
+    letter-spacing: 0.01em;
+  }
+
+  .course-header .term {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  ul.file-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  ul.file-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  ul.file-list li:last-child { border-bottom: none; }
+
+  ul.file-list li:hover { background: #f8fafc; }
+
+  .file-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--usafa-blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.96rem;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .file-link:hover { text-decoration: underline; }
+
+  .file-icon {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    color: var(--usafa-gray);
+  }
+
+  .badge {
+    flex: 0 0 auto;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .badge-webpage      { background: #e3edfa; color: var(--usafa-blue-dark); }
+  .badge-dataset       { background: #e2f5e9; color: #1a7a41; }
+  .badge-presentation  { background: #fdecd7; color: #b5620a; }
+  .badge-pdf           { background: #fbe4e4; color: #b42318; }
+  .badge-code          { background: #ece3fa; color: #6b3fa0; }
+
+  .file-date {
+    flex: 0 0 auto;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty-note {
+    padding: 1.1rem 1.4rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  footer a { color: var(--usafa-blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logomark" aria-hidden="true">
+      <svg viewBox="0 0 93.1 86.57" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30.5,13.21l-9.79,34.4h-4.19v5.88h14.03v-5.88h-3.08l1.31-4.61h10.1l1.23,4.61h-3.49v5.88h14.97v14h-3.92v5.88h14.11v-5.88h-3.92v-14h8.13v2.35h5.09v-10.58h-5.09v2.35h-8.13v-10.49h12.83v3.92h5.88v-9.8h-28.9v5.88h3.92v10.49h-4.64l-10.17-34.4h-6.29ZM33.59,24.62l3.92,12.5h-7.34l3.42-12.5Z"/>
+      </svg>
+    </div>
+    <div class="header-text">
+      <p class="eyebrow">United States Air Force Academy</p>
+      <h1>Course Materials</h1>
+      <p class="tagline">Lecture notes, code sample, and dataset for Lt Col Cho's courses.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="course">
+    <div class="course-header">
+      <h2>DS220 - Data-Driven Statistics with AI</h2>
+      <span class="term">Fall 2026</span>
+    </div>
+    <ul class="file-list">
+      <li>
+        <a class="file-link" href="DS220_Fall2026/bayes_rule.html">
+          <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/><path d="M14 2v5h5"/></svg>
+          Bayes' Rule
+        </a>
+        <span class="badge badge-webpage">Webpage</span>
+        <span class="file-date">Aug 13, 2026</span>
+      </li>
+      <li>
+        <a class="file-link" href="DS220_Fall2026/named-distributions.html">
+          <svg class="file-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 2h9l5 5v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z"/><path d="M14 2v5h5"/></svg>
+          Named Distributions
+        </a>
+        <span class="badge badge-presentation">Slides</span>
+        <span class="file-date">Aug 25, 2026</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="course">
+    <div class="course-header">
+      <h2>OR476 - Sports Analytics</h2>
+      <span class="term">Fall 2026</span>
+    </div>
+    <p class="empty-note">No materials posted yet — check back soon.</p>
+  </div>
+
+</main>
+
+<footer>
+  Questions? Contact Lt Col Cho at <a href="mailto:philip.cho@afacademy.af.edu">philip.cho@afacademy.af.edu</a>.
+</footer>
+
+</body>
+</html>
