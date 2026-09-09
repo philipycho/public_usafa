@@ -1,0 +1,185 @@
+---
+title: "Lesson 12 - Data Wrangling (Live Coding)"
+format: html
+editor:
+  markdown:
+    wrap: 72
+---
+
+## Setup
+
+We load the `tidyverse`, which gives us `dplyr` (the data-wrangling
+verbs) and the pipe operator. Then we read the cadet data into R and
+take a first look. `glimpse()` prints one row per variable so we can see
+the column names and types at a glance.
+
+```{r}
+# Load the tidyverse (gives us dplyr and the pipe)
+library(tidyverse)
+
+# Read in the cadet data
+url <- "https://philipycho.github.io/public_usafa/DS220_Fall2026/simulated_cadets.csv"
+# cadets <- read_csv("simulated_cadets.csv")
+cadets <- read_csv(url)
+
+# Take a first look at the variables and types
+tibble(cadets)
+```
+
+## The pipe operator `%>%`
+
+The pipe takes whatever is on its **left** and feeds it in as the first
+input to the function on its **right**. Read `%>%` out loud as "and
+then." So `cadets %>% head()` means "take the cadets data, and then show
+the head." Pipes let us chain several steps in the order we think about
+them: first do this, then this, then this.
+
+```{r}
+# Task: print the first 6 rows of cadets (6 is head()'s default) WITHOUT a pipe
+
+# Task: print those same first 6 rows, but this time USE the pipe with head()
+
+# Task: using the pipe, print the first 10 rows by giving head() the argument n = 10
+
+```
+
+## `select()` — pick columns
+
+`select()` chooses which **columns** (variables) to keep, and can also
+reorder them. Use it to narrow a wide dataset down to just the variables
+you care about. List the columns you want by name, separated by commas.
+Put a minus sign in front of a name to drop it instead.
+
+```{r}
+# Task: keep only two columns - cadet_id and gpa - and drop all the others
+
+# Task: keep exactly three columns, in this order: cadet_id, then academic_major, then gpa
+
+# Task: keep every column EXCEPT cadet_id (put a minus sign in front of cadet_id)
+```
+
+## `filter()` — pick rows
+
+`filter()` keeps only the **rows** that meet a condition you specify.
+The condition is a logical test. Use `==` to test equality (two equals
+signs, not one), and `>`, `<`, `>=`, `<=`, `!=` to compare. Combine
+conditions with `&` ("and") or `|` ("or").
+
+```{r}
+# Task: keep only the rows where gpa is greater than 3.0
+
+# Task: keep only rows where gpa is greater than 3.0 AND is_ic equals 1 (athletes) - join the two tests with &
+
+# Task: keep rows where squadron equals 1 OR squadron equals 2 - join the two tests with |
+```
+
+## `arrange()` — sort rows
+
+`arrange()` reorders the rows by the values in a column. By default it
+sorts smallest to largest (ascending). Wrap a column in `desc()` to sort
+largest to smallest. List more than one column to break ties: it sorts
+by the first, then by the second within each group.
+
+```{r}
+# Task: sort every row by gpa from lowest to highest (this is arrange()'s default order)
+
+# Task: sort every row by gpa from highest to lowest (wrap gpa in desc())
+
+# Task: sort by academic_major alphabetically, then within each major sort gpa from highest to lowest
+```
+
+## `mutate()` — create or change columns
+
+`mutate()` adds a **new column** (or overwrites an existing one),
+usually computed from other columns. Give the new column a name, then
+`=`, then the calculation. It's also how we change a variable's type —
+for example wrapping a number in `factor()` tells R to treat it as a
+category rather than a quantity.
+
+```{r}
+# Task: add a new column named weekly_study equal to avg_study_hours multiplied by 7
+
+# Task: overwrite the squadron column so R treats it as a category instead of a number (wrap squadron in factor())
+```
+
+## `rename()` — rename columns
+
+`rename()` changes a column's name without adding or removing any data.
+The pattern is `new_name = old_name`. You can rename several columns in
+one call by separating them with commas.
+
+```{r}
+# Task: rename the gpa column to grade_point_average (the pattern is new_name = old_name)
+
+# Task: in a single rename() call, rename pea to phys_ed_avg and rename avg_study_hours to study_hours
+```
+
+## `group_by()` and `summarize()` — summaries by group
+
+`summarize()` collapses many rows down to a single summary row, using
+functions like `mean()`, `median()`, `sd()`, `min()`, `max()`, or `n()`
+(which counts rows). On its own it summarizes the whole dataset.
+`group_by()` first splits the data into groups, so `summarize()` then
+produces one summary row **per group**. Add `na.rm = TRUE` inside a
+function like `mean()` to ignore missing values.
+
+```{r}
+# Task: using summarize() on the whole dataset, compute the mean of gpa and name that result mean_gpa
+
+# Task: group the cadets by grad_year, then compute the mean gpa for each class (name it mean_gpa) - you should get one row per graduating year
+
+# Task: group the cadets by squadron, then compute two columns per squadron: the number of cadets (name it n, using n()) and the mean of avg_study_hours (name it mean_study)
+```
+
+## `slice_*()` — grab rows by position or value
+
+The `slice_` family selects rows in handy ways. `slice_head()` and
+`slice_tail()` take the first or last rows. `slice_max()` and
+`slice_min()` take the rows with the largest or smallest values of a
+variable. `slice_sample()` draws a random set of rows. (These replace
+the older `top_n()`.)
+
+```{r}
+# Task: show the first 5 rows of cadets using slice_head() with n = 5
+
+# Task: show the 3 cadets with the highest gpa using slice_max() on gpa with n = 3
+
+# Task: draw a random sample of 10 cadets using slice_sample() with n = 10
+```
+
+## `inner_join()` — combine two data frames
+
+`inner_join()` merges two datasets by matching rows on a shared "key"
+column that appears in both. Every row keeps its match's columns from
+the other table. `inner_join()` keeps only rows that have a match in
+both tables. The small `class_lookup` table below (already built for
+you) pairs each `grad_year` with its class name; we'll join it onto the
+cadet data by `grad_year`.
+
+```{r}
+# This lookup table is PRE-BUILT for you: it pairs each grad_year with its class
+# name. It is the second table we will join onto the cadets data. Just run it.
+class_lookup <- tibble(
+  grad_year  = c(2027, 2028, 2029, 2030),
+  class_name = c("Firstie", "2-Degree", "3-Degree", "4-Degree")
+)
+class_lookup
+
+# Task: join class_lookup onto cadets, matching on the shared grad_year column, so
+#       that every cadet row gains a class_name column (use by = "grad_year")
+```
+
+## Putting it all together
+
+The real power comes from chaining verbs with the pipe. Each line does
+one step, and the data flows down through the whole pipeline.
+
+```{r}
+# Task: starting from cadets, chain three steps with %>%: (1) keep only athletes
+#       (is_ic == 1), (2) keep the columns cadet_id, academic_major, and gpa, and
+#       (3) sort the result by gpa from highest to lowest
+
+# Task: starting from cadets, group by academic_major, then summarize each major's
+#       mean gpa (name it mean_gpa) and cadet count (name it n, using n()), then
+#       sort the majors from highest to lowest mean_gpa
+```
