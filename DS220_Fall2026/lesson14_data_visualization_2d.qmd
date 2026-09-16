@@ -1,0 +1,128 @@
+---
+title: "Lesson 14 - Data Visualization in 2D (Live Coding)"
+format: html
+editor:
+  markdown:
+    wrap: 72
+---
+
+## Setup
+
+We load the `tidyverse` (gives us `ggplot2`) and read in the cadet
+data.
+
+```{r}
+# Load the tidyverse (gives us ggplot2)
+library(tidyverse)
+
+# Read in the cadet data
+url <- "https://philipycho.github.io/public_usafa/DS220_Fall2026/simulated_cadets.csv"
+# cadets <- read_csv("simulated_cadets.csv")
+cadets <- read_csv(url)
+
+# Take a first look at the variables and types
+tibble(cadets)
+```
+
+## The three elements — a first scatterplot
+
+Every plot needs **data** (which dataset), **aesthetics** (which
+variable maps to which visual channel), and **geometry** (which type
+of plot). A scatterplot uses `geom_point()` to show the relationship
+between two *numerical* variables - it's the right choice here because
+`avg_study_hours` and `gpa` are both numerical and we're asking about
+a relationship, not the distribution of just one variable.
+
+```{r}
+# Task: build a scatterplot with avg_study_hours on x and gpa on y,
+#       using cadets and geom_point()
+
+# Task: in a comment, name the three elements of the plot you just
+#       built - which dataset, which variable/channel, which geometry?
+
+```
+
+## Labeling a plot
+
+Add a `labs()` layer (chained with `+`, not a pipe) to give the plot a
+title and readable axis labels.
+
+```{r}
+# Task: copy your scatterplot from above and add a labs() layer with a
+#       title, and x/y labels that are more readable than the raw
+#       column names
+
+```
+
+## Fixing overplotting: transparency
+
+With ~4,000 cadets, points pile on top of each other. Set `alpha`
+(0-1) *inside* `geom_point()`, not inside `aes()`, to make points
+partly transparent so overlap becomes visible as darker regions.
+
+```{r}
+# Task: copy your scatterplot and add alpha = 0.2 inside geom_point()
+#       to reveal where points overlap
+
+# Task: in a comment, describe the relationship using this vocabulary:
+#       association? positive/negative? strong/weak? linear/non-linear?
+
+```
+
+## Fixing overplotting: jitter
+
+`geom_jitter()` nudges each point by a small random amount so
+overlapping points separate. It only changes how the plot looks - the
+underlying data is unchanged.
+
+```{r}
+# Task: make the same avg_study_hours vs. gpa plot, but swap
+#       geom_point() for geom_jitter()
+
+```
+
+## Adding a third variable: color
+
+Mapping a variable to `color` inside `aes()` can reveal patterns a
+single-color plot hides. We'll switch variables here: `avg_study_hours`
+vs. `pea` (fitness score), colored by `is_ic` (IC athlete status) -
+athlete status was built to affect *both* of these variables, so
+coloring by it should visibly split the cloud into two groups.
+
+```{r}
+# Task: build a scatterplot of avg_study_hours (x) vs. pea (y), with
+#       alpha = 0.2, colored by color = factor(is_ic) inside aes()
+
+# Task: in a comment, compare this colored plot to what you'd see in
+#       a single-color version - what shows up now that didn't before?
+
+```
+
+## Comparing groups: faceting
+
+`facet_wrap(~ variable)` splits one plot into a grid of side-by-side
+panels, one per group, instead of overlaying everything with color -
+a second way to compare the same two groups.
+
+```{r}
+# Task: build the same avg_study_hours vs. pea scatterplot (no color
+#       this time), then add facet_wrap(~ is_ic) instead
+
+# Task: in a comment, which do you prefer for comparing IC athletes to
+#       non-athletes here - the colored version or the faceted
+#       version - and why?
+
+```
+
+## Putting it together
+
+Combine what you've built: data, aesthetics (including a third
+variable), geometry, a fix for overplotting, and labels, all in one
+plot.
+
+```{r}
+# Task: build one scatterplot of avg_study_hours (x) vs. pea (y) that:
+#       (1) uses alpha to handle overplotting, (2) colors points by
+#       factor(is_ic), and (3) has a title and readable axis labels
+
+```
